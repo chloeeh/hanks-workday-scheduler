@@ -14,7 +14,7 @@ var fivePm = $("#17pm");
 
 var myHour = dayjs().hour();
 var userInput;
-var hourSpan;
+var userHour;
 
 function colorCode() {
   // for each item in .form-control class
@@ -25,9 +25,9 @@ function colorCode() {
     // parse through the items by their #id
     var timeBlock = parseInt($(this).attr("id"));
     // parse the current hour to convert the string into an integer
-    myHour = parseInt(myHour);
+    // myHour = parseInt(myHour);
     console.log("my hour is: " + myHour);
-    console.log(timeBlock);
+    // console.log(timeBlock);
 
     // compares the current time to the times in the given schedule's timeblocks
     if(myHour > timeBlock) {
@@ -46,13 +46,36 @@ function colorCode() {
 
 // TODO:
 function init() {
-  
+  // console.log("Current Hour " + myHour);
+  var storeInputNine = JSON.parse(localStorage.getItem("09:00 am"));
+  nineAm.val(storeInputNine);
+
+  var storeInputTen = JSON.parse(localStorage.getItem("10:00 am"));
+  tenAm.val(storeInputTen);
+
+  var storeInputEleven = JSON.parse(localStorage.getItem("11:00 am"));
+  elevenAm.val(storeInputEleven);
+
+  var storeInputTwelve = JSON.parse(localStorage.getItem("12:00 pm"));
+  twelvePm.val(storeInputTwelve);
+
+  var storeInputOne = JSON.parse(localStorage.getItem("01:00 pm"));
+  onePm.val(storeInputOne);
+
+  var storeInputTwo = JSON.parse(localStorage.getItem("02:00 pm"));
+  twoPm.val(storeInputTwo);
+
+  var storeInputThree = JSON.parse(localStorage.getItem("03:00 pm"));
+  threePm.val(storeInputThree);
+
+  var storeInputFour = JSON.parse(localStorage.getItem("04:00 pm"));
+  fourPm.val(storeInputFour);
+
+  var storeInputFive = JSON.parse(localStorage.getItem("05:00 pm"));
+  fivePm.val(storeInputFive);
 
 }
 
-function saveItems() {
-
-}
 
 function updateClock() {
   var currentDate = dayjs().format('dddd, MMM D, YYYY');
@@ -64,6 +87,17 @@ function updateClock() {
   setTimeout(updateClock, 1000);
 }
 
+init();
 colorCode();
 updateClock();
+
+$(".saveBtn").on("click", function() {
+  userInput = $(this).siblings(".form-control").val();
+  // console.log("my input: " + userInput);
+
+  userHour = $(this).siblings(".input-group-text").text();
+  console.log("my hour: " + userHour);
+  localStorage.setItem(userHour, JSON.stringify(userInput));
+  // localStorage.setItem("userHour", JSON.stringify(userHour));
+})
 
